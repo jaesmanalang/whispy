@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Input from './Input';
 import CustomButton from './CustomButton';
-import { signInWithGoogle } from '../firebase';
+import { auth, signInWithGoogle } from '../firebase';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,13 +37,17 @@ const SignInForm = () => {
   const { email, password } = user;
   const classes = useStyles();
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log(email, password);
-    setUser({
-      email: '',
-      password: '',
-    });
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      setUser({
+        email: '',
+        password: '',
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = e => {

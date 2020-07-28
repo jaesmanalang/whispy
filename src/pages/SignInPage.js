@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../components/Logo';
 import SignInForm from '../components/SignInForm';
@@ -17,10 +18,10 @@ const SignInContainer = styled.div`
   }
 `;
 
-const SignInPage = () => {
+const SignInPage = ({ history }) => {
   return (
     <SignInContainer>
-      <div className="title text-center">
+      <div onClick={() => history.push('/')} className="title text-center">
         <Logo color="#1f4068" />
       </div>
       <SignInForm className="form" />
@@ -28,4 +29,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default withRouter(SignInPage);

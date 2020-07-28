@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
@@ -50,12 +49,5 @@ const PostCard = ({ name }) => {
     </Card>
   );
 };
-
-// PostCard.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   imgUrl: PropTypes.string.isRequired,
-//   datePosted: PropTypes.any,
-//   content: PropTypes.string.isRequired,
-// };
 
 export default PostCard;
