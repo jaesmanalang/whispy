@@ -1,5 +1,10 @@
 import React, { useEffect, useContext } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import SignInPage from './pages/SignInPage';
 import { AuthContext } from './context/auth/authContext';
@@ -10,21 +15,25 @@ const App = () => {
 
   useEffect(() => {
     console.log(currentUser);
-    const unsubscribe = auth.onAuthStateChanged(async user => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         setCurrentUser(user);
+        console.log(user.displayName + ' is logged in');
       } else {
-        console.log(currentUser + ' hello from useeffect');
+        setCurrentUser(null);
       }
     });
-    console.log(currentUser);
     return () => unsubscribe();
-  }, [currentUser]);
+  }, [currentUser, setCurrentUser]);
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={SignInPage} />
+        <Route
+          exact
+          path="/login"
+          render={() => (currentUser ? <Redirect to="/" /> : <SignInPage />)}
+        />
       </Switch>
     </Router>
   );

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from './Header';
 import Logo from './Logo';
-import { auth } from '../firebase';
+import { AuthContext } from '../context/auth/authContext';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+
+import MenuButton from './MenuButton';
 
 const StyledNavbar = styled.nav`
   display: flex;
@@ -41,33 +44,35 @@ const StyledNavbar = styled.nav`
   }
 `;
 
-const Navbar = ({ currentUser, history }) => (
-  <Header>
-    <StyledNavbar className="header__nav">
-      <span onClick={() => history.push('/')}>
-        <Logo />
-      </span>
+const Navbar = ({ history }) => {
+  const [currentUser] = useContext(AuthContext);
 
-      <ul className="nav__list">
-        <li className="nav__item">
-          <Link to="/" className="nav__link">
-            Home
-          </Link>
-        </li>
-        <li className="nav__item">
-          {currentUser ? (
-            <Link onClick={() => auth.signOut()} className="nav__link sign-in">
-              Sign Out
-            </Link>
-          ) : (
-            <Link to="/login" className="nav__link sign-in">
-              Sign In
-            </Link>
-          )}
-        </li>
-      </ul>
-    </StyledNavbar>
-  </Header>
-);
+  return (
+    <Header>
+      <StyledNavbar className="header__nav">
+        <span onClick={() => history.push('/')}>
+          <Logo />
+        </span>
+
+        <ul className="nav__list">
+          <li className="nav__item">
+            {currentUser ? currentUser.displayName : 'Hello, Guest!'}
+          </li>
+          <li className="nav__item">
+            {currentUser ? (
+              <MenuButton>
+                <ArrowDropDownIcon color="action" fontSize="large" />
+              </MenuButton>
+            ) : (
+              <Link to="/login" className="nav__link sign-in">
+                Sign In
+              </Link>
+            )}
+          </li>
+        </ul>
+      </StyledNavbar>
+    </Header>
+  );
+};
 
 export default withRouter(Navbar);
