@@ -4,13 +4,9 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 10px;
-}
 
 body {
   font-family: Nunito Sans, sans-serif;
-  font-size: 1.6rem;
   line-height: 1.4;
   background: whitesmoke;
 }
@@ -27,7 +23,7 @@ img {
 
 a {
   text-decoration: none;
-  color: #ebebeb;
+  /* color: #ebebeb; */
 }
 
 .text-center {

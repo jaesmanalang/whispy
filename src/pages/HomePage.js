@@ -1,14 +1,13 @@
-import React, { Fragment } from 'react';
-import Navbar from '../components/Navbar';
-import PostList from '../components/PostList';
+import React from 'react';
+import Navigation from '../components/Navigation';
 
-const HomePage = () => (
-  <Fragment>
-    <Navbar />
-    <div className="container">
-      <PostList />
+const HomePage = () => {
+  return (
+    <div>
+      <Navigation />
+      <h1>Home Page</h1>
     </div>
-  </Fragment>
-);
+  );
+};
 
 export default HomePage;
